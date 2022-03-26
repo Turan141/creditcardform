@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { CardID } from './CardID'
 import { ViewsDatePicker } from './CardMonth'
 import { CardCVV } from './CardCVV'
@@ -10,6 +10,7 @@ export const CardData = () => {
   const [cardMonth, setCardMonth] = useState(0)
   const [cardCVV, setCardCVV] = useState(0)
   const [cardAmount, setCardAmount] = useState(0)
+  const [buttonActive, setButtonActive] = useState(false)
   const [active, setActive] = useState({
     id: false,
     month: false,
@@ -19,25 +20,46 @@ export const CardData = () => {
 
   const sumbitHandle = (e: any) => {
     e.preventDefault()
-    console.log(cardId, cardCVV, cardAmount, cardMonth)
   }
+
+  useEffect(() => {
+    if (active.id && active.month && active.amount && active.cvv) {
+      setButtonActive(true)
+    }
+  }, [active])
 
   return (
     <div className="cardData">
       <form className="formData">
-        <CardID cardId={cardId} setCardId={setCardId} setActive={setActive} />
-        <ViewsDatePicker setCardMonth={setCardMonth} setActive={setActive} />
-        <CardCVV setCardCVV={setCardCVV} setActive={setActive} />
-        <Amount setCardAmount={setCardAmount} setActive={setActive} />
-        <button
-          className="btn waves-effect waves-light height"
-          type="submit"
-          name="action"
-          onClick={sumbitHandle}
-        >
-          Submit
-          <i className="material-icons right">send</i>
-        </button>
+        <CardID setCardId={setCardId} active={active} setActive={setActive} />
+        <ViewsDatePicker
+          setCardMonth={setCardMonth}
+          active={active}
+          setActive={setActive}
+        />
+        <CardCVV
+          setCardCVV={setCardCVV}
+          active={active}
+          setActive={setActive}
+        />
+        <Amount
+          setCardAmount={setCardAmount}
+          active={active}
+          setActive={setActive}
+        />
+        {!buttonActive ? (
+          <p className="btn disabled">Sumbit</p>
+        ) : (
+          <button
+            className="btn waves-effect waves-light height"
+            type="submit"
+            name="action"
+            onClick={sumbitHandle}
+          >
+            Submit
+            <i className="material-icons right">send</i>
+          </button>
+        )}
       </form>
     </div>
   )

@@ -1,19 +1,28 @@
 import * as React from 'react'
-import { DatePicker, Space } from 'antd'
-import moment from 'moment'
-
+import '../../App.css'
 type propsType = {
   setCardMonth: (arg: any) => void
   setActive: (arg: any) => void
+  active: any
 }
 
-export const ViewsDatePicker: React.FC<propsType> = ({ setCardMonth }) => {
-  const dateHandler = (e: any | null) => {
-    setCardMonth(e.target.value)
+export const ViewsDatePicker: React.FC<propsType> = ({
+  setCardMonth,
+  setActive,
+  active,
+}) => {
+  const dateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e) {
+      setCardMonth(e.target.value)
+      setActive({ ...active, month: true })
+    }
   }
   return (
     <div className="height">
-      <input type="date" onChange={dateHandler} />
+      <label>
+        Expire Date:
+        <input className="datePicker" type="month" onChange={dateHandler} />
+      </label>
     </div>
   )
 }

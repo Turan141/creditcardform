@@ -1,17 +1,25 @@
 import React from 'react'
 
 type cardIdProps = {
-  cardId: number
   setCardId: (arg: number) => void
   setActive: (arg: any) => void
+  active: any
 }
 
-export const CardID: React.FC<cardIdProps> = ({ cardId, setCardId }) => {
+export const CardID: React.FC<cardIdProps> = ({
+  setActive,
+  setCardId,
+  active,
+}) => {
   const checkAndApply = (e: any): void => {
     if (e.target.value.length > e.target.maxLength) {
       e.target.value = e.target.value.slice(0, e.target.maxLength)
     }
-    setCardId(+e.target.value)
+
+    if (e.target.value.length === e.target.maxLength) {
+      setCardId(+e.target.value)
+      setActive({ ...active, id: true })
+    }
   }
   return (
     <div>
