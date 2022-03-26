@@ -1,13 +1,16 @@
 import React from 'react'
 
-export const CardCVV = () => {
-  const maxLengthCheck = (object: any) => {
-    if (object.target.value.length > object.target.maxLength) {
-      object.target.value = object.target.value.slice(
-        0,
-        object.target.maxLength
-      )
+type cardIdProps = {
+  setCardCVV: (arg: number) => void
+  setActive: (arg: any) => void
+}
+
+export const CardCVV: React.FC<cardIdProps> = ({ setCardCVV }) => {
+  const checkAndApply = (e: any): void => {
+    if (e.target.value.length > e.target.maxLength) {
+      e.target.value = e.target.value.slice(0, e.target.maxLength)
     }
+    setCardCVV(+e.target.value)
   }
   return (
     <div>
@@ -19,7 +22,7 @@ export const CardCVV = () => {
             name="cardid"
             required
             maxLength={3}
-            onInput={maxLengthCheck}
+            onInput={checkAndApply}
           />
         </label>
       </div>
