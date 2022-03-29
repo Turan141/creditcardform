@@ -19,7 +19,13 @@ export const Amount: React.FC<cardIdProps> = ({
       <div>
         <label>
           Cash Amount:
-          <input type="number" name="amount" required onChange={inputHandler} />
+          <input
+            type="number"
+            name="amount"
+            required
+            onChange={inputHandler}
+            autoComplete="off"
+          />
         </label>
       </div>
     </div>

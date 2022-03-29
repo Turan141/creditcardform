@@ -26,12 +26,13 @@ export const CardData = () => {
     if (active.id && active.month && active.amount && active.cvv) {
       setButtonActive(true)
     }
+    console.log(active)
   }, [active])
 
   return (
     <div className="cardData">
       <form className="formData">
-        <CardID setCardId={setCardId} active={active} setActive={setActive} />
+        <CardID setCardId={setCardId} setActive={setActive} active={active} />
         <ViewsDatePicker
           setCardMonth={setCardMonth}
           active={active}

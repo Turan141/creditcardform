@@ -3,23 +3,20 @@ import React from 'react'
 type cardIdProps = {
   setCardId: (arg: number) => void
   setActive: (arg: any) => void
-  active: any
+  active: object
 }
 
 export const CardID: React.FC<cardIdProps> = ({
-  setActive,
   setCardId,
+  setActive,
   active,
 }) => {
   const checkAndApply = (e: any): void => {
     if (e.target.value.length > e.target.maxLength) {
       e.target.value = e.target.value.slice(0, e.target.maxLength)
     }
-
-    if (e.target.value.length === e.target.maxLength) {
-      setCardId(+e.target.value)
-      setActive({ ...active, id: true })
-    }
+    setCardId(+e.target.value)
+    setActive({ ...active, id: true })
   }
   return (
     <div>
@@ -31,6 +28,7 @@ export const CardID: React.FC<cardIdProps> = ({
           required
           maxLength={16}
           onInput={checkAndApply}
+          autoComplete="off"
         />
       </label>
     </div>
